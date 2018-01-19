@@ -4,5 +4,11 @@
 * This renders the component's whole content.
 */
 {template .render}
-	<input type="file" data-onchange="_handleUploadFile" />
+	<div class="import-csv-component">
+		<label class="btn btn-primary" for="uploadFile">choose CSV file</label>
+		<input
+			data-onchange="_handleUploadFile"
+			id="uploadFile"
+			type="file" />
+	</div>
 {/template}

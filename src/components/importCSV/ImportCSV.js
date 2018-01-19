@@ -4,10 +4,16 @@ import Soy from 'metal-soy';
 
 import csv from 'csvtojson';
 
+import './ImportCSV.scss';
+
 /**
  * App class
  */
 class ImportCSV extends Component {
+  /**
+   * Formate CSV
+   * @param {*} event
+   */
   formatCSV(event) {
     const csvStr = event.target.result;
 
@@ -25,6 +31,10 @@ class ImportCSV extends Component {
       });
   }
 
+  /**
+   * Formate Chart Properties
+   * @param {*} csvRow
+   */
   formatChartProperties(csvRow) {
     this.removedHeadersIndex = [];
     this.csvData = csvRow
@@ -39,6 +49,10 @@ class ImportCSV extends Component {
       }, {});
   }
 
+  /**
+   * Format Chart Values
+   * @param {*} csvRow
+   */
   formatChartValues(csvRow) {
     const rowValues = csvRow.filter(
       (value, index) => this.removedHeadersIndex.indexOf(index) == -1
@@ -49,6 +63,10 @@ class ImportCSV extends Component {
     });
   }
 
+  /**
+   * Upload File
+   * @param {*} event
+   */
   _handleUploadFile(event) {
     const file = event.target.files[0];
     const reader = new FileReader();
