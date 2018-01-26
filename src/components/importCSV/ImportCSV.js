@@ -44,10 +44,12 @@ class ImportCSV extends Component {
 
         return value.trim();
       })
-      .reduce((initialValue, cur) => {
-        initialValue[cur] = [];
-        return initialValue;
-      }, {});
+      .map((headerValue, index) => {
+        return {
+          label: headerValue,
+          value: [],
+        };
+      });
   }
 
   /**
@@ -59,8 +61,8 @@ class ImportCSV extends Component {
       (value, index) => this.removedHeadersIndex.indexOf(index) == -1
     );
 
-    Object.keys(this.csvData).forEach((key, index) => {
-      this.csvData[key].push(rowValues[index]);
+    this.csvData.forEach((currentItem, index) => {
+      currentItem.value.push(rowValues[index]);
     });
   }
 
@@ -83,12 +85,18 @@ class ImportCSV extends Component {
     reader.readAsText(file);
   }
 
+  /**
+   * Check file type
+   * @param {*} Object
+   * @return {boolean}
+   */
   checkFileType({type}) {
     return type == 'text/csv';
   }
 }
 
 ImportCSV.STATE = {
+  csvData: Config.array(),
   errorMessage: Config.string(),
 };
 

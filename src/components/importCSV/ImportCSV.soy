@@ -4,7 +4,8 @@
 * This renders the component's whole content.
 */
 {template .render}
-	{@param? errorMessage:string}
+	{@param? csvData: list<?>}
+	{@param? errorMessage: string}
 	<div class="import-csv-component">
 		<label class="btn btn-primary" for="uploadFile">choose CSV file</label>
 		<input
@@ -13,5 +14,9 @@
 			type="file" />
 
 		{$errorMessage}
+
+
+		{$csvData}
+
 	</div>
 {/template}
