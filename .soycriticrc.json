@@ -1,7 +1,15 @@
 {
-  "callToImportRegex": "(\\S+)",
-  "callToImportReplace": "{$1|param}",
+  "callToImport": [
+    {
+      "regex": "(\\S+)",
+      "replace": "{$1|param}"
+    },
+    {
+      "regex": "(\\S+)",
+      "replace": "{$1}"
+    }
+  ],
   "implicitParams": {
-    "Clay*": ["elementClasses", "visible"]
+    "Chart*": ["loading_"]
   }
 }
