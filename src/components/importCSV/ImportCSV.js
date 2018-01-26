@@ -1,18 +1,20 @@
-import templates from './ImportCSV.soy.js';
 import Component from 'metal-component';
-import {Config} from 'metal-state';
+import _ from 'lodash';
 import Soy from 'metal-soy';
-
 import csv from 'csvtojson';
+import {Config} from 'metal-state';
 
 import './ImportCSV.scss';
+
+import templates from './ImportCSV.soy.js';
+import '../Charts/Charts';
 
 /**
  * App class
  */
 class ImportCSV extends Component {
   /**
-   * Formate CSV
+   * Format CSV
    * @param {*} event
    */
   formatCSV(event) {
@@ -26,14 +28,11 @@ class ImportCSV extends Component {
         } else {
           this.formatChartProperties(csvRow);
         }
-      })
-      .on('done', () => {
-        console.log(this.csvData);
       });
   }
 
   /**
-   * Formate Chart Properties
+   * Format Chart Properties
    * @param {*} csvRow
    */
   formatChartProperties(csvRow) {
@@ -62,7 +61,18 @@ class ImportCSV extends Component {
     );
 
     this.csvData.forEach((currentItem, index) => {
-      currentItem.value.push(rowValues[index]);
+      let data = {
+          data: [1],
+          id: Date.now().toString() + currentItem.value.length.toString(),
+          name: rowValues[index],
+        },
+        filteredItem = _.find(currentItem.value, {name: rowValues[index]});
+
+      if (filteredItem) {
+        filteredItem.data[0] += 1;
+      } else {
+        currentItem.value.push(data);
+      }
     });
   }
 
@@ -74,14 +84,13 @@ class ImportCSV extends Component {
     const file = event.target.files[0];
     const reader = new FileReader();
 
-    if (!this.checkFileType(file)) {
+    if (!file || !this.checkFileType(file)) {
       this.errorMessage = 'Por favor selecione um arquivo csv';
       return;
     }
 
-    delete this.errorMessage;
+    this.errorMessage = '';
     reader.onload = this.formatCSV.bind(this);
-
     reader.readAsText(file);
   }
 
