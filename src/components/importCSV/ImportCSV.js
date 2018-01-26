@@ -1,5 +1,6 @@
 import templates from './ImportCSV.soy.js';
 import Component from 'metal-component';
+import {Config} from 'metal-state';
 import Soy from 'metal-soy';
 
 import csv from 'csvtojson';
@@ -71,11 +72,25 @@ class ImportCSV extends Component {
     const file = event.target.files[0];
     const reader = new FileReader();
 
+    if (!this.checkFileType(file)) {
+      this.errorMessage = 'Por favor selecione um arquivo csv';
+      return;
+    }
+
+    delete this.errorMessage;
     reader.onload = this.formatCSV.bind(this);
 
     reader.readAsText(file);
   }
+
+  checkFileType({type}) {
+    return type == 'text/csv';
+  }
 }
+
+ImportCSV.STATE = {
+  errorMessage: Config.string(),
+};
 
 Soy.register(ImportCSV, templates);
 
