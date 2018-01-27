@@ -1,9 +1,9 @@
+import templates from './Charts.soy.js';
 import Component from 'metal-component';
-import {d3} from 'metal-charts';
+import Soy from 'metal-soy';
 import {Config} from 'metal-state';
 
-import Soy from 'metal-soy';
-import templates from './Charts.soy.js';
+import 'metal-charts';
 
 /**
  * App class

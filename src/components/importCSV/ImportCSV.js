@@ -1,16 +1,16 @@
+import templates from './ImportCSV.soy.js';
 import Component from 'metal-component';
-import _ from 'lodash';
 import Soy from 'metal-soy';
-import csv from 'csvtojson';
 import {Config} from 'metal-state';
+
+import _ from 'lodash';
+import csv from 'csvtojson';
+import '../Charts/Charts';
 
 import './ImportCSV.scss';
 
-import templates from './ImportCSV.soy.js';
-import '../Charts/Charts';
-
 /**
- * App class
+ * ImportCSV class
  */
 class ImportCSV extends Component {
   /**
@@ -62,11 +62,11 @@ class ImportCSV extends Component {
 
     this.csvData.forEach((currentItem, index) => {
       let data = {
-          data: [1],
-          id: Date.now().toString() + currentItem.value.length.toString(),
-          name: rowValues[index],
-        },
-        filteredItem = _.find(currentItem.value, {name: rowValues[index]});
+        data: [1],
+        id: Date.now().toString() + currentItem.value.length.toString(),
+        name: rowValues[index],
+      };
+      let filteredItem = _.find(currentItem.value, {name: rowValues[index]});
 
       if (filteredItem) {
         filteredItem.data[0] += 1;
@@ -85,7 +85,7 @@ class ImportCSV extends Component {
     const reader = new FileReader();
 
     if (!file || !this.checkFileType(file)) {
-      this.errorMessage = 'Por favor selecione um arquivo csv';
+      this.errorMessage = 'Please, choose a file in CSV format';
       return;
     }
 
@@ -105,7 +105,16 @@ class ImportCSV extends Component {
 }
 
 ImportCSV.STATE = {
+  /**
+   * @type {array}
+   * @default undefined
+   */
   csvData: Config.array(),
+
+  /**
+   * @type {string}
+   * @default undefined
+   */
   errorMessage: Config.string(),
 };
 

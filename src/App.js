@@ -3,6 +3,7 @@ import Component from 'metal-component';
 import Soy from 'metal-soy';
 
 import './components/importCSV/ImportCSV';
+
 import './app.scss';
 
 /**
