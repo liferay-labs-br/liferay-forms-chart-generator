@@ -4,5 +4,8 @@
  * This renders the component's whole content.
  */
 {template .render}
-	<div class="app">Hello World</div>
+	<div class="app">
+		{call ImportCSV.render}
+		{/call}
+	</div>
 {/template}

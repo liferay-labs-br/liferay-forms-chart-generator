@@ -39,6 +39,11 @@
 	},
 	"dependencies": {
 		"bootstrap": "^3.3.6",
+		"clay": "^2.0.0-beta.6",
+		"clay-charts": "^2.0.0-beta.8",
+		"csvtojson": "^1.1.9",
+		"lodash": "^4.17.4",
+		"metal-charts": "^1.0.0-alpha.3",
 		"metal-soy": "^2.0.0"
 	},
 	"devDependencies": {

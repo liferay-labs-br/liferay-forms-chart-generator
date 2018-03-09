@@ -1,0 +1,12 @@
+{namespace Charts}
+
+/**
+* This renders the component's whole content.
+*/
+{template .render}
+	{@param? csvData: ?}
+
+	{call DonutChart.render}
+		{param columns: $csvData.value /}
+	{/call}
+{/template}
